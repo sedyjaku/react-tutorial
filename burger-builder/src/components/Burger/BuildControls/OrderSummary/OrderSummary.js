@@ -1,8 +1,13 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect} from "react";
 import Button from "../../../UI/Button/Button";
 import PropTypes from 'prop-types';
 
 const OrderSummary = (props) => {
+
+    useEffect(() => {
+        console.log("Order summary rendering")
+    });
+
     const ingredientSummary = Object.keys(props.ingredients)
         .map(ingredientKey => {
             return (

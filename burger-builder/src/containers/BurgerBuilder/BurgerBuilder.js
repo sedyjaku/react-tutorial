@@ -105,15 +105,22 @@ const BurgerBuilder = (props) => {
         updatePurchasable(updatedIngredients);
     };
 
-    return (
-        <Fragment>
-            <Modal show={purchasing} modalClosed={purchaseCancelHandler}>
-                <OrderSummary
-                    price = {price}
-                    ingredients = {ingredients}
+    let modal = null;
+    //is called less times  but has no "fly in" effect
+    if(purchasing)
+    {
+        modal =  <Modal show={purchasing} modalClosed={purchaseCancelHandler}>
+            <OrderSummary
+                price = {price}
+                ingredients = {ingredients}
                 purchaseCanceled={purchaseCancelHandler}
                 purchaseContinued={purchaseContinueHandler}/>
-            </Modal>
+        </Modal>
+    }
+
+    return (
+        <Fragment>
+            {modal}
             <Burger ingredients={ingredients}/>
             <BuildControls
                 price={price}
