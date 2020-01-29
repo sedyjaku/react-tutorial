@@ -1,6 +1,8 @@
 import React, {Fragment, useState} from "react";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
+import Modal from "../../components/UI/Modal/Modal";
+import OrderSummary from "../../components/Burger/BuildControls/OrderSummary/OrderSummary";
 
 const INGREDIENT_PRICE = {
     salad: 0.5,
@@ -40,6 +42,22 @@ const BurgerBuilder = (props) => {
     );
 
     const [purchasable, setPurchasable] = useState(false);
+
+    const [purchasing, setPurchasing] = useState(false);
+
+    const purchaseHandler = () => {
+        setPurchasing(true);
+    };
+
+    const purchaseCancelHandler = () => {
+        setPurchasing(false);
+    };
+
+    const purchaseContinueHandler = () => {
+        alert("You continue");
+        // setPurchasing(false);
+    };
+
 
     const addIngredientHandler = (type) => {
         const oldCount = ingredients[type];
@@ -89,12 +107,20 @@ const BurgerBuilder = (props) => {
 
     return (
         <Fragment>
+            <Modal show={purchasing} modalClosed={purchaseCancelHandler}>
+                <OrderSummary
+                    price = {price}
+                    ingredients = {ingredients}
+                purchaseCanceled={purchaseCancelHandler}
+                purchaseContinued={purchaseContinueHandler}/>
+            </Modal>
             <Burger ingredients={ingredients}/>
             <BuildControls
                 price={price}
                 ingredientAdded={addIngredientHandler}
                 ingredientRemoved={removeIngredientHandler}
                 purchasable={purchasable}
+                ordered = {purchaseHandler}
             />
         </Fragment>
     )

@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
-import "./Burger.css";
+import styles from "./burger.module.css";
+import PropTypes from 'prop-types';
 
 const Burger = (props) => {
 
@@ -18,12 +19,16 @@ const Burger = (props) => {
     }
 
     return (
-        <div className="Burger">
+        <div className = {styles.Burger}>
             <BurgerIngredient type="bread-top"/>
             {transformedIngredients}
             <BurgerIngredient type="bread-bottom"/>
         </div>
     );
+};
+
+Burger.propTypes = {
+    ingredients: PropTypes.object
 };
 
 export default Burger;
