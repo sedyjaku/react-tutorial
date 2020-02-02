@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import styles from "./layout.module.css"
 import Toolbar from "../Navigation/Toolbar/Toolbar";
 import SideDrawer from "../Navigation/SideDrawer/SideDrawer";
@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const Layout = (props) => {
 
-        const [showSideDrawer, setShowSideDrawer] = useState(true);
+        const [showSideDrawer, setShowSideDrawer] = useState(false);
 
     const sideDrawerClosedHandler = () => {
         setShowSideDrawer(false);
