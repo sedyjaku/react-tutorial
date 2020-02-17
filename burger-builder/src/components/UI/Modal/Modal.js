@@ -6,7 +6,8 @@ import PropTypes, {bool, func, object, string} from 'prop-types';
 const Modal = React.memo((props) => {
 
     useEffect(() => {
-        console.log("Modal rendering")
+        console.log("Modal rendering");
+        console.log(props)
     });
     return <Fragment>
         <Backdrop show={props.show} clicked={props.modalClosed}/>

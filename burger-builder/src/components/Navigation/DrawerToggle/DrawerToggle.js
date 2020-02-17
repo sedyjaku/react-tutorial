@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 const DrawerToggle = (props) => {
     return <div className={styles.DrawerToggle} onClick={props.clicked}>
-        <div></div>
-        <div></div>
-        <div></div>
+        <div/>
+        <div/>
+        <div/>
     </div>
 };
 

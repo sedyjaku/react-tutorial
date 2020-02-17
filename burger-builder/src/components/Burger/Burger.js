@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 import styles from "./burger.module.css";
 import PropTypes from 'prop-types';
+import {withRouter} from "react-router-dom";
 
 const Burger = (props) => {
 
@@ -31,4 +32,4 @@ Burger.propTypes = {
     ingredients: PropTypes.object
 };
 
-export default Burger;
+export default withRouter(Burger);

@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment, useEffect, useRef, useState} from "react";
 import Modal from "../../components/UI/Modal/Modal";
 
 const withErrorHandler = (WrappedComponent, axios) => {
@@ -9,22 +9,28 @@ const withErrorHandler = (WrappedComponent, axios) => {
         let requestInterceptor = null;
         let responseInterceptor = null;
 
+        const axiosInst = useRef(axios);
+
         useEffect(() => {
-                requestInterceptor = axios.interceptors.request.use(req => {
+                console.log("registering interceptors");
+                console.log(axiosInst.current.interceptors);
+                requestInterceptor = axiosInst.current.interceptors.request.use(req => {
+                    console.log("No error Error vole");
                     setError(null);
                     return req;
                 }, error => error);
-                responseInterceptor = axios.interceptors.response.use(response => response, errorResponse => {
+                responseInterceptor = axiosInst.current.interceptors.response.use(response => response, errorResponse => {
                     setError(errorResponse);
+                    console.log("Error vole");
                     return errorResponse;
                 });
                 return () => {
-                    axios.interceptors.request.eject(requestInterceptor);
-                    axios.interceptors.response.eject(responseInterceptor);
+                    axiosInst.current.interceptors.request.eject(requestInterceptor);
+                    axiosInst.current.interceptors.response.eject(responseInterceptor);
                     console.log("Umouting interceptors");
                 }
             },
-            [error]
+            [WrappedComponent, error]
         );
 
         const clearError = () => {
@@ -33,8 +39,8 @@ const withErrorHandler = (WrappedComponent, axios) => {
 
 
         return <Fragment>
-            <Modal show={error != null} modalClosed={() => setError(null)}>
-
+            <Modal show={error != null}
+               modalClosed={() => setError(null)}>
                 {/*modalClosed={clearError}*/}
                 {error ? error.message : null}
             </Modal>
